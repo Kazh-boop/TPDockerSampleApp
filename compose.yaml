@@ -1,0 +1,18 @@
+version: '3.3'
+services:  
+    nginx-proxy:
+        image: jwilder/nginx-proxy
+        ports:
+            - 8080:80
+        volumes:
+            - /var/run/docker.sock:/tmp/docker.sock
+
+    myimage:
+        build: .
+        environment:
+            VIRTUAL_HOST: m
+        deploy:
+            mode: replicated
+            replicas: 4
+
+# docker compose -f compose.yaml up
